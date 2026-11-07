@@ -58,6 +58,10 @@ document.getElementById('restart').addEventListener('click',reset);
 function setDirection(n){if(finished)return;direction=n;playCutting()}
 function stopDirection(n){if(direction===n)direction=0;if(!direction)stopCutting()}
 addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();setDirection(-1)}if(e.key==='ArrowRight'){e.preventDefault();setDirection(1)}if(e.key.toLowerCase()==='r')reset()});addEventListener('keyup',e=>{if(e.key==='ArrowLeft')stopDirection(-1);if(e.key==='ArrowRight')stopDirection(1)});
+let touchCutDirection=0;
+function beginTouchCut(e){if(e.pointerType==='mouse'||finished)return;e.preventDefault();touchCutDirection=e.clientX<innerWidth/2?-1:1;controls.enabled=false;setDirection(touchCutDirection);canvas.setPointerCapture?.(e.pointerId)}
+function endTouchCut(e){if(e.pointerType==='mouse'||!touchCutDirection)return;e.preventDefault();stopDirection(touchCutDirection);touchCutDirection=0;controls.enabled=true;if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId)}
+canvas.addEventListener('pointerdown',beginTouchCut,{passive:false});canvas.addEventListener('pointerup',endTouchCut,{passive:false});canvas.addEventListener('pointercancel',endTouchCut,{passive:false});canvas.addEventListener('contextmenu',e=>{if(matchMedia('(pointer:coarse)').matches)e.preventDefault()});
 
 function resize(){const w=innerWidth,h=innerHeight,d=Math.min(devicePixelRatio||1,2),aspect=w/h,minW=finished?13.5:8;renderer.setPixelRatio(d);renderer.setSize(w,h,false);let viewH=finished?9:8,viewW=viewH*aspect;if(viewW<minW){viewW=minW;viewH=viewW/aspect}camera.left=-viewW/2;camera.right=viewW/2;camera.top=viewH/2;camera.bottom=-viewH/2;camera.updateProjectionMatrix()}
 addEventListener('resize',resize);resize();

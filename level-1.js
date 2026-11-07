@@ -65,6 +65,10 @@ function setDirection(n){if(finished)return;direction=n;playCutting()}
 function stopDirection(n){if(direction===n)direction=0;if(!direction)stopCutting()}
 addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();setDirection(-1)}if(e.key==='ArrowRight'){e.preventDefault();setDirection(1)}if(e.key.toLowerCase()==='r')reset()});
 addEventListener('keyup',e=>{if(e.key==='ArrowLeft')stopDirection(-1);if(e.key==='ArrowRight')stopDirection(1)});
+let touchCutDirection=0;
+function beginTouchCut(e){if(e.pointerType==='mouse'||finished)return;e.preventDefault();touchCutDirection=e.clientX<innerWidth/2?-1:1;controls.enabled=false;setDirection(touchCutDirection);canvas.setPointerCapture?.(e.pointerId)}
+function endTouchCut(e){if(e.pointerType==='mouse'||!touchCutDirection)return;e.preventDefault();stopDirection(touchCutDirection);touchCutDirection=0;controls.enabled=true;if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId)}
+canvas.addEventListener('pointerdown',beginTouchCut,{passive:false});canvas.addEventListener('pointerup',endTouchCut,{passive:false});canvas.addEventListener('pointercancel',endTouchCut,{passive:false});canvas.addEventListener('contextmenu',e=>{if(matchMedia('(pointer:coarse)').matches)e.preventDefault()});
 
 function complete(){finished=true;direction=0;stopCutting();document.body.classList.add('finished');ringRoot.position.y=.55;ringRoot.remove(wholeRing,guide,cutGroup,person);const halfW=BAND_W/2,top=makeRing(halfW),bottom=makeRing(halfW);top.position.y=BAND_W/4;bottom.position.y=-BAND_W/4;top.add(crossSection(-halfW/2));bottom.add(crossSection(halfW/2));ringRoot.add(top,bottom);halves={top,bottom};resize()}
 function reset(){stopCutting();cuttingAudio.currentTime=0;document.body.classList.remove('finished');ringRoot.position.y=0;if(halves){ringRoot.remove(halves.top,halves.bottom);halves=null}clearCut();wholeRing=makeRing();ringRoot.add(wholeRing,guide,cutGroup,person);angle=0;direction=0;finished=false;separation=0;cutCount=0;cut.fill(false);updatePerson();resize()}
