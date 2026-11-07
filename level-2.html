@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>剪开莫比乌斯环</title>
+  <link rel="stylesheet" href="./level-2.css">
+</head>
+<body>
+  <header class="level-hud">
+    <a href="./index.html" data-color-link class="home-link">纸带 Paper Stripe</a>
+    <div><span>关卡 02</span><strong>莫比乌斯环</strong><small>拖动可 3D 旋转 · ← / → 沿虚线剪开</small></div>
+    <p><b>剪开前</b><span>一个面 · 一个环</span></p>
+  </header>
+  <canvas id="stage" aria-label="可用左右方向键沿中线剪开的莫比乌斯环"></canvas>
+  <section class="result-panel" id="result-panel" aria-live="polite">
+    <p class="result-label">剪切结果</p>
+    <h1>一条更长的双面环</h1>
+    <p class="result-copy">莫比乌斯环原本只有一个连续的面。沿中线剪开后不会变成两个环，而会得到一条长度加倍、宽度减半，并带有两个整扭转的普通双面环；它已经不再是莫比乌斯环。</p>
+    <div class="result-facts"><span><b>形状</b>1 个环 → 仍是 1 个环</span><span><b>表面</b>1 个面 → 2 个面</span></div>
+    <button id="restart" type="button">再剪一次 <kbd>R</kbd></button>
+  </section>
+  <nav class="level-nav" aria-label="关卡导航">
+    <a href="./level-1.html" data-color-link aria-label="上一关：普通环">⬅️</a>
+    <a href="./advanced.html?level=3" data-color-link aria-label="下一关：普通环 1/3">➡️</a>
+  </nav>
+  <script type="importmap">
+  { "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+  <script type="module" src="./level-2.js"></script>
+</body>
+</html>
