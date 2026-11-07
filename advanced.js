@@ -9,8 +9,8 @@ const colorHex=selectedColor.toString(16).padStart(6,'0');
 const requestedSound=new URLSearchParams(location.search).get('sound');
 const rainEnabled=requestedSound?requestedSound!=='off':localStorage.getItem('paper-stripe-sound')!=='off';
 const soundQuery=rainEnabled?'on':'off';
-const rainAudio=new Audio('https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3');
-rainAudio.preload='metadata';rainAudio.loop=true;rainAudio.volume=.15;
+const rainAudio=new Audio('./rain.mp3');
+rainAudio.preload='auto';rainAudio.loop=true;rainAudio.volume=.15;rainAudio.load();
 function startRain(){if(rainEnabled&&rainAudio.paused)rainAudio.play().catch(()=>{})}
 addEventListener('pointerdown',startRain,{once:true});addEventListener('keydown',startRain,{once:true});
 const ADVANCED='./advanced.html';
@@ -140,7 +140,7 @@ function clearCuts(){while(cutGroup.children.length){const m=cutGroup.children.p
 function complete(){finished=true;direction=0;stopCutting();clearCuts();localStorage.setItem('paper-stripe-walker-step',String(Math.min(8,level)));document.body.classList.add('finished');root.remove(initialRoot,guide,person);resultRoot=makeResult();resultRoot.scale.setScalar(.82);root.add(resultRoot);reveal=0;resize()}
 function reset(){stopCutting();cuttingAudio.currentTime=0;document.body.classList.remove('finished');if(resultRoot){root.remove(resultRoot);resultRoot=null}if(person){person.removeFromParent();person=null}clearCuts();progress=0;direction=0;finished=false;reveal=0;buildScene();resize()}
 
-const cuttingAudio=new Audio('https://sfxmint.com/dl/scissors-snip-07.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;
+const cuttingAudio=new Audio('./scissors.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;cuttingAudio.load();
 function playCutting(){if(cuttingAudio.paused)cuttingAudio.play().catch(()=>{})}
 function stopCutting(){cuttingAudio.pause()}
 function setDirection(n){if(finished)return;direction=n;playCutting()}

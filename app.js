@@ -15,18 +15,14 @@ let selectedColor='#F2D9E0',selectedEffectKind='pink';
 let selectedSound=0,soundEnabled=localStorage.getItem('paper-stripe-sound')!=='off';
 const soundVolumes=[.16,.14,.18,.2,.15];
 const soundLabels=['雨声','雨声','雨声','雨声','雨声'];
-const ambientSources=[
-  'https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3',
-  'https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3',
-  'https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3',
-  'https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3',
-  'https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3'
-];
-const ambientTracks=ambientSources.map(src=>{const audio=new Audio(src);audio.preload='metadata';audio.loop=true;audio.volume=0;return audio});
+const ambientTrack=new Audio('./rain.mp3');
+ambientTrack.preload='auto';ambientTrack.loop=true;ambientTrack.volume=0;ambientTrack.load();
 const fades=new WeakMap();
 
 function fadeAudio(audio,target,duration=520){const old=fades.get(audio);if(old)cancelAnimationFrame(old);if(target>0&&audio.paused)audio.play().catch(()=>{});const start=audio.volume,t0=performance.now();function step(now){const p=Math.min(1,(now-t0)/duration),value=start+(target-start)*(1-Math.pow(1-p,3));audio.volume=Math.max(0,Math.min(1,value));if(p<1)fades.set(audio,requestAnimationFrame(step));else{fades.delete(audio);if(target===0)audio.pause()}}fades.set(audio,requestAnimationFrame(step))}
-function switchAmbient(index){selectedSound=index;ambientTracks.forEach((audio,i)=>{if(i===index&&soundEnabled)fadeAudio(audio,soundVolumes[i]);else fadeAudio(audio,0)});soundButton.title=`环境音：${soundLabels[index]}`;soundButton.setAttribute('aria-pressed',String(soundEnabled));soundButton.setAttribute('aria-label',soundEnabled?`关闭${soundLabels[index]}环境音`:`开启${soundLabels[index]}环境音`)}
+function switchAmbient(index){selectedSound=index;fadeAudio(ambientTrack,soundEnabled?soundVolumes[index]:0);soundButton.title=`环境音：${soundLabels[index]}`;soundButton.setAttribute('aria-pressed',String(soundEnabled));soundButton.setAttribute('aria-label',soundEnabled?`关闭${soundLabels[index]}环境音`:`开启${soundLabels[index]}环境音`)}
+function primeAmbient(){if(!soundEnabled||!ambientTrack.paused)return;ambientTrack.volume=0;ambientTrack.play().catch(()=>{})}
+addEventListener('pointerdown',primeAmbient,{once:true,capture:true});addEventListener('keydown',primeAmbient,{once:true,capture:true});
 soundButton.setAttribute('aria-pressed',String(soundEnabled));soundButton.setAttribute('aria-label',soundEnabled?'关闭环境音':'开启环境音');
 soundButton.addEventListener('click',()=>{soundEnabled=!soundEnabled;localStorage.setItem('paper-stripe-sound',soundEnabled?'on':'off');switchAmbient(selectedSound);updateLevelLinks(selectedColor)});
 
