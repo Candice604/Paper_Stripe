@@ -166,6 +166,10 @@ function playCutting(){if(cuttingAudio.paused)cuttingAudio.play().catch(()=>{})}
 function setDirection(n){if(finished)return;direction=n;playCutting()}function stopDirection(n){if(direction===n)direction=0;if(!direction)stopCutting()}
 addEventListener('keydown',e=>{if(!reward.hidden&&(e.key==='Escape'||e.key==='Enter')){e.preventDefault();closeReward();return}if(e.key==='ArrowLeft'){e.preventDefault();setDirection(-1)}if(e.key==='ArrowRight'){e.preventDefault();setDirection(1)}if(e.key.toLowerCase()==='r')reset()});
 addEventListener('keyup',e=>{if(e.key==='ArrowLeft')stopDirection(-1);if(e.key==='ArrowRight')stopDirection(1)});
+let touchCutDirection=0;
+function beginTouchCut(e){if(e.pointerType==='mouse'||finished)return;e.preventDefault();touchCutDirection=e.clientX<innerWidth/2?-1:1;controls.enabled=false;setDirection(touchCutDirection);canvas.setPointerCapture?.(e.pointerId)}
+function endTouchCut(e){if(e.pointerType==='mouse'||!touchCutDirection)return;e.preventDefault();stopDirection(touchCutDirection);touchCutDirection=0;controls.enabled=true;if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId)}
+canvas.addEventListener('pointerdown',beginTouchCut,{passive:false});canvas.addEventListener('pointerup',endTouchCut,{passive:false});canvas.addEventListener('pointercancel',endTouchCut,{passive:false});canvas.addEventListener('contextmenu',e=>{if(matchMedia('(pointer:coarse)').matches)e.preventDefault()});
 document.getElementById('restart').addEventListener('click',reset);
 rewardClose.addEventListener('click',closeReward);reward.addEventListener('click',e=>{if(e.target===reward)closeReward()});
 document.getElementById('continue-cut').addEventListener('click',()=>{if(level===3&&stage===1&&!finished){direction=1;playCutting()}});
