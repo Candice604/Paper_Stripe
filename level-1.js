@@ -19,8 +19,8 @@ const requestedColor=new URLSearchParams(location.search).get('color');
 const selectedColor=/^[0-9a-fA-F]{6}$/.test(requestedColor||'')?parseInt(requestedColor,16):0xf2d9e0;
 const requestedSound=new URLSearchParams(location.search).get('sound');
 const rainEnabled=requestedSound!=='off',soundQuery=rainEnabled?'on':'off';
-const rainAudio=new Audio('https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3');
-rainAudio.preload='metadata';rainAudio.loop=true;rainAudio.volume=.15;
+const rainAudio=new Audio('./rain.mp3');
+rainAudio.preload='auto';rainAudio.loop=true;rainAudio.volume=.15;rainAudio.load();
 function startRain(){if(rainEnabled&&rainAudio.paused)rainAudio.play().catch(()=>{})}
 addEventListener('pointerdown',startRain,{once:true});addEventListener('keydown',startRain,{once:true});
 document.querySelectorAll('[data-color-link]').forEach(link=>{const url=new URL(link.href);url.searchParams.set('color',selectedColor.toString(16).padStart(6,'0'));url.searchParams.set('sound',soundQuery);link.href=url.toString()});
@@ -57,7 +57,7 @@ function addCutSegment(i){if(cutMeshes[i])return;const a=i/N*Math.PI*2,b=(i+1)/N
 function clearCut(){for(let i=0;i<N;i++){const mesh=cutMeshes[i];if(mesh){cutGroup.remove(mesh);mesh.geometry.dispose();cutMeshes[i]=null}}}
 updatePerson();
 
-const cuttingAudio=new Audio('https://sfxmint.com/dl/scissors-snip-07.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;
+const cuttingAudio=new Audio('./scissors.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;cuttingAudio.load();
 function playCutting(){if(cuttingAudio.paused)cuttingAudio.play().catch(()=>{})}
 function stopCutting(){cuttingAudio.pause()}
 

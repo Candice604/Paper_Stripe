@@ -12,8 +12,8 @@ const requestedColor=new URLSearchParams(location.search).get('color');
 const selectedColor=/^[0-9a-fA-F]{6}$/.test(requestedColor||'')?parseInt(requestedColor,16):0xd9d9d9;
 const requestedSound=new URLSearchParams(location.search).get('sound');
 const rainEnabled=requestedSound!=='off',soundQuery=rainEnabled?'on':'off';
-const rainAudio=new Audio('https://cdn.pixabay.com/download/audio/2025/04/19/audio_8eaa8ce06b.mp3?filename=dragon-studio-rain-falling-30-seconds-329727.mp3');
-rainAudio.preload='metadata';rainAudio.loop=true;rainAudio.volume=.15;
+const rainAudio=new Audio('./rain.mp3');
+rainAudio.preload='auto';rainAudio.loop=true;rainAudio.volume=.15;rainAudio.load();
 function startRain(){if(rainEnabled&&rainAudio.paused)rainAudio.play().catch(()=>{})}
 addEventListener('pointerdown',startRain,{once:true});addEventListener('keydown',startRain,{once:true});
 document.querySelectorAll('[data-color-link]').forEach(link=>{const url=new URL(link.href);url.searchParams.set('color',selectedColor.toString(16).padStart(6,'0'));url.searchParams.set('sound',soundQuery);link.href=url.toString()});
@@ -43,7 +43,7 @@ let angle=0,direction=0,finished=false,last=0,cutCount=0,result=null,reveal=0,un
 function updatePerson(){const t=angle,p=new THREE.Vector3(R*Math.cos(t),0,R*Math.sin(t)),tangent=new THREE.Vector3(-Math.sin(t),0,Math.cos(t)),widthDir=new THREE.Vector3(Math.cos(t/2)*Math.cos(t),Math.sin(t/2),Math.cos(t/2)*Math.sin(t)),normal=new THREE.Vector3().crossVectors(tangent,widthDir).normalize();person.position.copy(p).addScaledVector(normal,.075);person.quaternion.setFromUnitVectors(up,normal)}
 updatePerson();
 
-const cuttingAudio=new Audio('https://sfxmint.com/dl/scissors-snip-07.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;
+const cuttingAudio=new Audio('./scissors.mp3');cuttingAudio.preload='auto';cuttingAudio.loop=true;cuttingAudio.volume=.42;cuttingAudio.load();
 function playCutting(){if(cuttingAudio.paused)cuttingAudio.play().catch(()=>{})}
 function stopCutting(){cuttingAudio.pause()}
 
