@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>纸带 · 特殊关卡</title>
+  <link rel="stylesheet" href="./special.css">
+</head>
+<body>
+  <header class="level-hud">
+    <a id="home-link" class="home-link">纸带 Paper Stripe</a>
+    <div><span id="level-no">特殊 01</span><strong id="level-title"></strong><small id="instruction">拖动可 3D 旋转 · ← / → 沿虚线剪开</small></div>
+    <p><b id="fact-label">挑战</b><span id="before-fact"></span></p>
+  </header>
+  <canvas id="stage" tabindex="0" aria-label="可旋转并用左右方向键剪开的三维拓扑模型"></canvas>
+  <div class="reward-overlay" id="special-reward" hidden>
+    <div class="reward-confetti" id="reward-confetti" aria-hidden="true"></div>
+    <div class="reward-card" role="dialog" aria-modal="true" aria-labelledby="reward-title">
+      <div class="reward-ip"><img id="reward-mascot" alt=""></div>
+      <p>特殊关卡完成</p>
+      <strong id="reward-title"></strong>
+      <button id="reward-close" type="button">继续观察</button>
+    </div>
+  </div>
+  <section class="phase-panel" id="phase-panel" aria-live="polite">
+    <p>第一刀完成</p><strong>环面已经打开成圆柱面</strong><span>继续按 →，或点击下方按钮</span><button id="continue-cut" type="button">沿纬线继续剪 →</button>
+  </section>
+  <section class="result-panel" aria-live="polite">
+    <p class="result-label">观察结果</p>
+    <h1 id="result-title"></h1>
+    <p class="result-copy" id="result-copy"></p>
+    <div class="result-facts" id="result-facts"></div>
+    <button id="restart" type="button">再试一次 <kbd>R</kbd></button>
+  </section>
+  <nav class="level-nav" aria-label="特殊关卡导航">
+    <a id="prev-level" aria-label="上一关">⬅️</a>
+    <a id="next-level" aria-label="下一关">➡️</a>
+  </nav>
+  <script type="importmap">
+  { "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+  <script type="module" src="./special.js"></script>
+</body>
+</html>
