@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="纸带 Paper Stripe — 沿圆形线框台阶进入拓扑剪切实验。">
+  <meta name="theme-color" content="#ffffff">
+  <title>纸带 Paper Stripe</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">纸带 <span>Paper Stripe</span></a>
+    <div class="header-tools">
+      <div class="palette" role="group" aria-label="选择台阶颜色">
+        <span id="color-name">浅色樱花粉</span>
+        <div class="swatches">
+          <button class="swatch active" type="button" data-color="#F2D9E0" data-name="浅色樱花粉" style="--swatch:#F2D9E0" aria-label="浅色樱花粉" aria-pressed="true"></button>
+          <button class="swatch" type="button" data-color="#D8EAF4" data-name="浅色天空蓝" style="--swatch:#D8EAF4" aria-label="浅色天空蓝" aria-pressed="false"></button>
+          <button class="swatch" type="button" data-color="#DDEBDC" data-name="浅色青草绿" style="--swatch:#DDEBDC" aria-label="浅色青草绿" aria-pressed="false"></button>
+          <button class="swatch" type="button" data-color="#F2E7A9" data-name="浅色春花黄" style="--swatch:#F2E7A9" aria-label="浅色春花黄" aria-pressed="false"></button>
+          <button class="swatch" type="button" data-color="#DEDEDE" data-name="浅色简单灰" style="--swatch:#DEDEDE" aria-label="浅色简单灰" aria-pressed="false"></button>
+        </div>
+        <button id="sound-toggle" class="sound-toggle" type="button" aria-label="关闭环境音" aria-pressed="true" title="环境音">♪</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">纸带<br><span>Paper Stripe</span></h1>
+      <small>拖动可 3D 旋转 · 点击台阶进入关卡</small>
+    </section>
+    <canvas id="stair-stage" aria-label="可旋转的圆形线框楼梯，小人停在当前进度台阶"></canvas>
+    <nav class="level-dock" aria-label="全部关卡">
+      <a data-step="0" data-level-link href="./level-1.html" aria-label="关卡 1">1</a>
+      <a data-step="1" data-level-link href="./level-2.html" aria-label="关卡 2">2</a>
+      <a data-step="2" data-level-link href="./advanced.html?level=3" aria-label="关卡 3">3</a>
+      <a data-step="3" data-level-link href="./advanced.html?level=4" aria-label="关卡 4">4</a>
+      <a data-step="4" data-level-link href="./advanced.html?level=5" aria-label="关卡 5">5</a>
+      <a data-step="5" data-level-link href="./advanced.html?level=6" aria-label="关卡 6">6</a>
+      <a data-step="6" data-level-link href="./special.html?level=1" aria-label="特殊关卡 1"><img src="./mascot-turtle.png" alt="乌龟"></a>
+      <a data-step="7" data-level-link href="./special.html?level=2" aria-label="特殊关卡 2"><img src="./mascot-owl.png" alt="猫头鹰"></a>
+      <a data-step="8" data-level-link href="./special.html?level=3" aria-label="特殊关卡 3"><img src="./mascot-cat.png" alt="紫色猫"></a>
+    </nav>
+  </main>
+  <script type="importmap">
+  { "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
