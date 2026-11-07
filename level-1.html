@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>纯白纸环</title>
+  <link rel="stylesheet" href="./level-1.css">
+</head>
+<body>
+  <header class="level-hud">
+    <a href="./index.html" data-color-link class="home-link">纸带 Paper Stripe</a>
+    <div><span>关卡 01</span><strong>普通环</strong><small>拖动可 3D 旋转 · ← / → 沿虚线剪开</small></div>
+    <p><b>剪开前</b><span>两个面 · 一个环</span></p>
+  </header>
+  <canvas id="stage" aria-label="可用左右方向键剪开的三维纸环"></canvas>
+  <section class="result-panel" id="result-panel" aria-live="polite">
+    <p class="result-label">剪切结果</p>
+    <h1>两个普通环</h1>
+    <p class="result-copy">普通纸环原本就有正面和背面。沿中线剪开只是把纸带的宽度分成两半，所以得到两个彼此独立的普通环；每个环仍然都有两个面。</p>
+    <div class="result-facts"><span><b>形状</b>1 个环 → 2 个环</span><span><b>表面</b>2 个面 → 每个仍为 2 个面</span></div>
+    <button id="restart" type="button">再剪一次 <kbd>R</kbd></button>
+  </section>
+  <nav class="level-nav" aria-label="关卡导航">
+    <a href="./index.html" data-color-link aria-label="返回关卡目录">⬅️</a>
+    <a href="./level-2.html" data-color-link aria-label="下一关：莫比乌斯环">➡️</a>
+  </nav>
+  <script type="importmap">
+  { "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+  <script type="module" src="./level-1.js"></script>
+</body>
+</html>

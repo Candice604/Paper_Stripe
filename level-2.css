@@ -1,0 +1,28 @@
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#fff;color:#171717;font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+#stage{display:block;width:100%;height:100%;outline:0;cursor:grab}
+#stage:active{cursor:grabbing}
+.level-hud{position:fixed;inset:22px 28px auto;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}
+.level-hud a,.level-nav a,.result-panel button{pointer-events:auto}
+.home-link{color:#171717;text-decoration:none;font-size:13px;font-weight:700}
+.level-hud>div{text-align:center}
+.level-hud div span,.level-hud div small{display:block;color:#777;font-size:10px;letter-spacing:.1em}
+.level-hud div strong{display:block;font-size:17px;margin:5px 0}
+.level-hud>p{justify-self:end;margin:0;text-align:right}
+.level-hud p b,.level-hud p span{display:block}
+.level-hud p b{font-size:10px;color:#777;letter-spacing:.12em}
+.level-hud p span{font-size:12px;margin-top:5px}
+.level-nav{position:fixed;z-index:7;left:25px;right:25px;bottom:18px;display:flex;justify-content:space-between;pointer-events:none}
+.level-nav a{font-size:24px;line-height:1;text-decoration:none;filter:grayscale(1)}
+.result-panel{position:fixed;z-index:5;left:50%;bottom:28px;width:min(720px,calc(100% - 150px));transform:translate(-50%,18px);text-align:center;opacity:0;visibility:hidden;transition:opacity .35s,transform .35s;pointer-events:none}
+body.finished .result-panel{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.result-label{margin:0 0 3px;color:#777;font-size:9px;letter-spacing:.15em}
+.result-panel h1{font-size:27px;letter-spacing:-.04em;margin:0 0 7px}
+.result-copy{font-family:Georgia,"Noto Serif SC",serif;color:#454545;line-height:1.55;font-size:13px;margin:0 auto;max-width:660px}
+.result-facts{display:flex;justify-content:center;gap:24px;margin-top:9px}
+.result-facts span{font-size:11px}
+.result-facts b{color:#777;font-size:9px;letter-spacing:.1em;margin-right:6px}
+.result-panel button{margin-top:9px;padding:0 0 3px;border:0;border-bottom:1px solid #171717;background:transparent;color:#171717;cursor:pointer;font:11px inherit}
+.result-panel kbd{font:9px ui-monospace,monospace;margin-left:4px}
+@media(max-width:650px){.level-hud{inset:14px 14px auto;grid-template-columns:1fr 1fr}.level-hud>div{display:none}.level-nav{left:12px;right:12px;bottom:12px}.result-panel{bottom:48px;width:calc(100% - 42px)}.result-panel h1{font-size:22px}.result-copy{font-size:12px}.result-facts{gap:10px;flex-wrap:wrap}}
+
